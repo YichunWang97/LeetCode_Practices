@@ -1,0 +1,29 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        for num in range(len(nums)):
+            traget_num = target - nums[num]
+            if traget_num in nums: 
+                if traget_num != nums[num]: #第三個示例存在重複元素
+                    target_index = nums.index(traget_num, num)
+                    return [num, target_index]
+                else:
+                    continue
+##################################################################
+输出存在问题 -> 当list存在相同数字且公式成立 -> 无法提取这两个相同的数字
+##################################################################
+网络题解：遍历列表的同时查字典
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        dct = {}
+        for i, n in enumerate(nums):
+            cp = target - n
+            if cp in dct:
+                return [dct[cp], i]
+            else:
+                dct[n] = i
