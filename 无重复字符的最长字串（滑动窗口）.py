@@ -64,3 +64,30 @@ def lengthOfLongestSubstring(s):
 print(lengthOfLongestSubstring('abcabcbb'))
 print(lengthOfLongestSubstring('bbbbb'))
 print(lengthOfLongestSubstring('pwwkew'))
+
+######################################################################
+# 通过enumerate查找重复字符划分滑动窗口
+# 存在问题：第三个示例结果出错（输出为2）
+
+def lengthOfLongestSubString2(s):
+    if len(s) <= 1:
+        return len(s)
+
+    left, max_length = 0, 0
+    hashMap = {}
+
+    for index, char in enumerate(s):
+        if char in hashMap:
+            hashMap[char] = index
+            max_length = max(max_length, hashMap[char] - left)
+            if hashMap[char] + 1 >= left:
+                left = hashMap[char] + 1
+        else:
+            hashMap[char] = index
+
+    return max_length
+
+
+print(lengthOfLongestSubString2('abcabcbb'))
+print(lengthOfLongestSubString2('bbbbb'))
+print(lengthOfLongestSubString2('pwwkew'))
